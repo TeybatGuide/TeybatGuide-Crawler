@@ -1,10 +1,10 @@
-package toyproject.genshin.teybatguidecrawler.common;
+package toyproject.genshin.teybatguidecrawler.common.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
-import toyproject.genshin.teybatguidecrawler.common.value.Domain;
+import toyproject.genshin.teybatguidecrawler.common.domain.value.Domain;
 
 import java.io.Serializable;
 import java.util.Objects;

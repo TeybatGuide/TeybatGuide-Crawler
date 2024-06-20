@@ -1,4 +1,4 @@
-package toyproject.genshin.teybatguidecrawler.common.value;
+package toyproject.genshin.teybatguidecrawler.common.domain.value;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
