@@ -4,6 +4,8 @@ import lombok.extern.log4j.Log4j2;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.core.io.ClassPathResource;
@@ -45,8 +47,18 @@ class CharactersCrawlServiceTest {
                 Document document = response.parse();
                 log.info("data => {}", document.body().text());
 
-                //todo
-                // 데이터 파싱하기
+                Elements elements = document.selectXpath("//*[@id=\"app\"]/div/div[2]/article/div[2]/div/div[4]/div/div[2]/div[4]/div[3]/div[4]/table/tbody/tr[2]/td/div/div/div[1]/dl/dd/div/div/table");
+
+                log.info("elements count => {}", elements.size());
+
+                for (Element element : elements) {
+                    Elements select = element.select("a");
+
+                    //todo
+                    // 링크 가져와 데이터 파싱하기
+
+                    log.info(select.text());
+                }
 
             } else {
                 log.error("Http error: {}", response.statusCode());
