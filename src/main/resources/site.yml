@@ -1,3 +1,4 @@
 site:
+  base: https://namu.wiki
   genshin:
-    character: https://wiki.hoyolab.com/pc/genshin/aggregate/2
+    character: https://namu.wiki/w/%EC%9B%90%EC%8B%A0/%EC%BA%90%EB%A6%AD%ED%84%B0
