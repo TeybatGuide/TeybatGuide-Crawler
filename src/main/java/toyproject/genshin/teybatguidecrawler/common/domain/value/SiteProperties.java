@@ -7,8 +7,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum SiteProperties {
 
+    BASE("site.base-url"),
     CHARACTER("site.genshin.character"),
-    WEAPON("");
+    WEAPON("site.genshin.weapon");
 
     private final String propertyLocation;
 

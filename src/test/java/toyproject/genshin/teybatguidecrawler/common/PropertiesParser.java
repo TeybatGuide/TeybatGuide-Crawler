@@ -10,12 +10,20 @@ import java.util.Map;
 
 public class PropertiesParser {
 
-    public static String getProperty(ClassPathResource classPathResource, SiteProperties siteProperties) throws IOException {
+    public static String getProperty(
+            ClassPathResource classPathResource, SiteProperties siteProperties
+    ) throws IOException {
         String content = classPathResource.getContentAsString(Charset.defaultCharset());
         return parsePropertiesString(content).get(siteProperties.getPropertyLocation());
     }
 
-    public static Map<String, String> parsePropertiesString(String propertiesContent) {
+    public static String makeUrl(ClassPathResource classPathResource, String characterHref) throws IOException {
+        String content = classPathResource.getContentAsString(Charset.defaultCharset());
+        String property = parsePropertiesString(content).get(SiteProperties.BASE.getPropertyLocation());
+        return property + characterHref;
+    }
+
+    private static Map<String, String> parsePropertiesString(String propertiesContent) {
         Map<String, String> properties = new HashMap<>();
 
         String[] lines = propertiesContent.split("\n");
