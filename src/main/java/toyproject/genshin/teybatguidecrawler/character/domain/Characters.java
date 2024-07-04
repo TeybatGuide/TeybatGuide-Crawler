@@ -3,11 +3,11 @@ package toyproject.genshin.teybatguidecrawler.character.domain;
 import jakarta.persistence.*;
 import lombok.Getter;
 import toyproject.genshin.teybatguidecrawler.character.domain.value.Element;
-import toyproject.genshin.teybatguidecrawler.common.BaseEntity;
-import toyproject.genshin.teybatguidecrawler.common.value.Country;
-import toyproject.genshin.teybatguidecrawler.common.value.Domain;
-import toyproject.genshin.teybatguidecrawler.common.value.Stars;
-import toyproject.genshin.teybatguidecrawler.common.value.WeaponType;
+import toyproject.genshin.teybatguidecrawler.common.domain.BaseEntity;
+import toyproject.genshin.teybatguidecrawler.common.domain.value.Country;
+import toyproject.genshin.teybatguidecrawler.common.domain.value.Domain;
+import toyproject.genshin.teybatguidecrawler.common.domain.value.Stars;
+import toyproject.genshin.teybatguidecrawler.common.domain.value.WeaponType;
 
 @Getter
 @Entity

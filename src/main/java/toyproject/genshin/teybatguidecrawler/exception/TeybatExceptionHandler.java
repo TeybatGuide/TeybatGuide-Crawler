@@ -15,7 +15,16 @@ public class TeybatExceptionHandler {
             PropertyNotFoundException exception,
             HttpServletRequest request
     ) {
-        log.error("url: {}, message: {}", request.getRequestURI(), exception.getMessage());
+        log.error("🧨 url: {}, message: {}", request.getRequestURI(), exception.getMessage());
+        return ResponseEntity.badRequest().body(exception.getMessage());
+    }
+
+    @ExceptionHandler(DocumentNotExistException.class)
+    public ResponseEntity<String> documentNotExistExceptionHandler(
+            DocumentNotExistException exception,
+            HttpServletRequest request
+    ) {
+        log.error("🧨 url: {}, message: {}", request.getRequestURI(), exception.getMessage());
         return ResponseEntity.badRequest().body(exception.getMessage());
     }
 

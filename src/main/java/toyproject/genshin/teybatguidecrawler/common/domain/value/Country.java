@@ -3,6 +3,9 @@ package toyproject.genshin.teybatguidecrawler.common.domain.value;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+import java.util.Arrays;
+import java.util.List;
+
 @Getter
 @RequiredArgsConstructor
 public enum Country {
@@ -17,5 +20,9 @@ public enum Country {
     OTHER("기타");
 
     private final String countryName;
+
+    public static List<String> getCountries() {
+        return Arrays.stream(Country.values()).map(Country::getCountryName).toList();
+    }
 
 }
