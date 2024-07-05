@@ -24,4 +24,8 @@ public class YmlProperty {
         return binder.bind(name.getPropertyLocation(), List.class).orElseThrow(PropertyNotFoundException::new);
     }
 
+    public String makeUrl(String url) {
+        return environment.getProperty(SiteProperties.BASE.getPropertyLocation()) + url;
+    }
+
 }
