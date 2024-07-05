@@ -42,7 +42,6 @@ class CharactersCrawlServiceTest {
 
         try {
             // 연결 설정 및 HTML 문서 가져오기
-//            Document document = JsoupManager.ConnectJsoupGet(characterUrl);
             Connection.Response response = JsoupManager.ConnectJsoupExecute(characterUrl);
 
             // 응답 상태 코드 확인
