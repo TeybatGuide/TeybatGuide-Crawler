@@ -10,18 +10,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class TeybatExceptionHandler {
 
-    @ExceptionHandler(PropertyNotFoundException.class)
-    public ResponseEntity<String> propertyNotFoundExceptionHandler(
-            PropertyNotFoundException exception,
-            HttpServletRequest request
-    ) {
-        log.error("🧨 url: {}, message: {}", request.getRequestURI(), exception.getMessage());
-        return ResponseEntity.badRequest().body(exception.getMessage());
-    }
-
-    @ExceptionHandler(DocumentNotExistException.class)
-    public ResponseEntity<String> documentNotExistExceptionHandler(
-            DocumentNotExistException exception,
+    @ExceptionHandler(TeybatException.class)
+    public ResponseEntity<String> handleNotFoundException(
+            Exception exception,
             HttpServletRequest request
     ) {
         log.error("🧨 url: {}, message: {}", request.getRequestURI(), exception.getMessage());
