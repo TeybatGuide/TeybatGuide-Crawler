@@ -8,6 +8,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
+import toyproject.genshin.teybatguidecrawler.common.domain.value.JsonProperties;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -19,20 +20,19 @@ import java.util.List;
 @RequiredArgsConstructor
 public class JsonReader {
 
+    private static final Gson gson = new Gson();
+    private static final Resource resource = new ClassPathResource("setting.json");
     private final ResourceLoader resourceLoader;
 
-    public static List<String> getExceptKeywords() {
-        Gson gson = new Gson();
-        Resource resource = new ClassPathResource("data.json");
-
+    public static List<String> getKeywords(JsonProperties properties) {
         try (Reader reader = new InputStreamReader(resource.getInputStream())) {
-            // JSON 파일을 JsonObject로 변환
+
             JsonObject jsonObject = gson.fromJson(reader, JsonObject.class);
 
             // "except-keywords" 키의 값을 List<String>으로 변환
             Type listType = new TypeToken<List<String>>() {}.getType();
 
-            return gson.fromJson(jsonObject.get("except-keywords"), listType);
+            return gson.fromJson(jsonObject.get(properties.getKey()), listType);
         } catch (IOException e) {
             log.error(e.getMessage());
             throw new RuntimeException(e);

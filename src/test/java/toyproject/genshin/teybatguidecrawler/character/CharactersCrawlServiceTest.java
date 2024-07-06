@@ -8,6 +8,7 @@ import org.jsoup.select.Elements;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.core.io.ClassPathResource;
+import toyproject.genshin.teybatguidecrawler.character.domain.CharacterAttributes;
 import toyproject.genshin.teybatguidecrawler.common.JsoupManager;
 import toyproject.genshin.teybatguidecrawler.common.PropertiesParser;
 import toyproject.genshin.teybatguidecrawler.common.domain.value.Country;
@@ -47,13 +48,12 @@ class CharactersCrawlServiceTest {
             // 응답 상태 코드 확인
             if (isStatusOK(response)) {
                 Document document = response.parse();
-                log.info("data => {}", document.body().text());
 
-                Elements elements = document
-                        .selectXpath("//*[@id=\"app\"]/div/div[2]/article/div[2]/div/div[4]/div/div[2]/div[4]/div[3]/div[4]/table/tbody/tr[2]/td/div/div/div[1]/dl/dd/div/div/table")
-                        .select("a");
+                Element tbody = document.select("tbody").get(2).select("tbody").get(1);
 
-                log.info("elements count => {}", elements.size());
+                log.info("tbody: {}", tbody.text());
+
+                Elements elements = tbody.select("a");
 
                 Queue<String> q = new LinkedList<>();
 
@@ -78,14 +78,19 @@ class CharactersCrawlServiceTest {
                         Document parse = characterConnection.parse();
 //                        log.info("data => {}", parse.body().text());
 
-                        Elements select = parse.selectXpath("//*[@id=\"app\"]/div/div[2]/article/div[2]/div/div[4]/div/div[2]/div[4]/div[3]/div[3]/table/tbody")
-                                .select("tr");
 
-                        for (Element element : select) {
-                            if (checkCharacterInfo(element)) {
-                                log.info("character info => {}", element.text());
-                            }
-                        }
+                        CharacterAttributes attributes = CharacterAttributes.parseElements(parse);
+                        log.info("character attributes => {}", attributes);
+
+//                        Elements select = parse.selectXpath("//*[@id=\"app\"]/div/div[2]/article/div[2]/div/div[4]/div/div[2]/div[4]/div[3]/div[3]/table/tbody")
+//                                .select("tr");
+//
+//                        for (Element element : select) {
+//
+//                            if (checkCharacterInfo(element)) {
+//                                log.info("character info => {}", element.text());
+//                            }
+//                        }
                     }
                 }
 

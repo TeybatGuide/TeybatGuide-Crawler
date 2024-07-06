@@ -33,10 +33,10 @@ public class CharactersCrawlService {
         List<CharacterAttributes> list = new LinkedList<>();
 
         try {
-            Connection.Response response = JsoupManager.ConnectJsoupExecute(url);
+            Document doc = JsoupManager.ConnectJsoupGet(url);
 
-            if (JsoupManager.isStatusOK(response)) {
-                Elements elements = getElements(response.parse());
+            if (!JsoupManager.isDocumentNull(doc)) {
+                Elements elements = getElements(doc);
                 log.debug("elements count => {}", elements.size());
 
                 List<String> fullUrlList = makeFullUrlList(elements);
@@ -46,7 +46,7 @@ public class CharactersCrawlService {
                         .filter(Objects::nonNull)
                         .toList();
             } else {
-                log.error("Http error: {}", response.statusCode());
+                log.debug("Document is null");
             }
 
         } catch (IOException e) {
@@ -74,9 +74,9 @@ public class CharactersCrawlService {
     }
 
     private Elements getElements(Document document) {
-        return document
-                .selectXpath("//*[@id=\"app\"]/div/div[2]/article/div[2]/div/div[4]/div/div[2]/div[4]/div[3]/div[4]/table/tbody/tr[2]/td/div/div/div[1]/dl/dd/div/div/table")
-                .select("a");
+        Element tbody = document.select("tbody").get(2).select("tbody").get(1);
+        log.debug("tbody: {}", tbody.text());
+        return tbody.select("a");
     }
 
     private List<String> makeFullUrlList(Elements elements) {

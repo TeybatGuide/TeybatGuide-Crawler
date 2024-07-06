@@ -34,5 +34,9 @@ public class JsoupManager {
         return response != null && response.statusCode() == 200;
     }
 
+    public static boolean isDocumentNull(Document document) {
+        return document == null;
+    }
+
 
 }
