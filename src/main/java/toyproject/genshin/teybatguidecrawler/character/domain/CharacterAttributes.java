@@ -1,6 +1,5 @@
 package toyproject.genshin.teybatguidecrawler.character.domain;
 
-
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -27,12 +26,12 @@ public record CharacterAttributes(
         String name = parseName(document);
 
         try {
-            for (Element element : select) {
-                if (checkCharacterInfo(element)) {
-                    putCharacterInfoMap(element);
-                }
-            }
-        } catch (NullPointerException e) {
+            assert select != null;
+            select.stream()
+                    .filter(CharacterAttributes::checkCharacterInfo)
+                    .forEach(CharacterAttributes::putCharacterInfoMap);
+
+        } catch (NullPointerException | AssertionError e) {
             log.error("parsing error => {}", e.getMessage());
             throw new DocumentParseException(e.getMessage());
         }
