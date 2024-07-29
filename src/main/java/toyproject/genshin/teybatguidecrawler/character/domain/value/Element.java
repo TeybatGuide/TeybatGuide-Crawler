@@ -2,6 +2,12 @@ package toyproject.genshin.teybatguidecrawler.character.domain.value;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import toyproject.genshin.teybatguidecrawler.common.domain.value.Stars;
+
+import java.util.Collections;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Getter
 @RequiredArgsConstructor
@@ -17,5 +23,12 @@ public enum Element {
 
     private final String elementName;
     private final String elementImage;
+
+    private static final Map<String, String> ELEMENT_MAP = Collections.unmodifiableMap(
+            Stream.of(values()).collect(Collectors.toMap(Element::getElementName, Element::name)));
+
+    public static Element of(final String name) {
+        return Element.valueOf(ELEMENT_MAP.get(name));
+    }
 
 }
