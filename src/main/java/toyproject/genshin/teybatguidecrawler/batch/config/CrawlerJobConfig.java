@@ -25,6 +25,8 @@ import java.util.List;
 
 import static org.quartz.JobBuilder.newJob;
 
+//ToDo
+//  나중에 삭제할 것
 @Log4j2
 @Configuration
 @RequiredArgsConstructor
