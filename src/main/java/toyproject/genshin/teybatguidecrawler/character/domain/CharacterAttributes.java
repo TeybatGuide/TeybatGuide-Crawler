@@ -1,6 +1,9 @@
 package toyproject.genshin.teybatguidecrawler.character.domain;
 
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -19,7 +22,8 @@ public record CharacterAttributes(
 ) {
     private static Map<String, String> map;
 
-    public static CharacterAttributes parseElements(Document document) throws IOException {
+    @Contract("_ -> new")
+    public static @NotNull CharacterAttributes parseElements(Document document) throws IOException {
         map = new ConcurrentHashMap<>();
 
         Elements select = getElements(document);
@@ -39,7 +43,7 @@ public record CharacterAttributes(
         return new CharacterAttributes(name, map.get("소속"), map.get("신의 눈"), 0, map.get("무기"));
     }
 
-    private static Elements getElements(Document document) {
+    private static @Nullable Elements getElements(Document document) {
         Element characterInfoTable = parseCharacterInfoTable(document);
 
         if (characterInfoTable != null) {
@@ -50,15 +54,15 @@ public record CharacterAttributes(
         return null;
     }
 
-    private static boolean isCharacterInfoTable(Element element) {
+    private static boolean isCharacterInfoTable(@NotNull Element element) {
         return element.text().contains("본명") && element.text().contains("무기");
     }
 
-    private static String parseName(Document document) {
+    private static @NotNull String parseName(@NotNull Document document) {
         return document.select("h1 > a > span").text().replace("(원신)", "");
     }
 
-    private static Element parseCharacterInfoTable(Document document) {
+    private static Element parseCharacterInfoTable(@NotNull Document document) {
         Elements select = document.select("div > div > div > table > tbody");
         return select.stream()
                 .filter(CharacterAttributes::isCharacterInfoTable)
@@ -66,7 +70,7 @@ public record CharacterAttributes(
                 .orElse(null);
     }
 
-    private static void putCharacterInfoMap(Element element) {
+    private static void putCharacterInfoMap(@NotNull Element element) {
         String text = element.text();
         log.debug(text);
         String[] s = text.split(" ");

@@ -6,4 +6,7 @@ import toyproject.genshin.teybatguidecrawler.character.domain.Characters;
 
 @Repository
 public interface CharactersRepository extends JpaRepository<Characters, String> {
+
+    boolean existsByCharacterNameContaining(String characterName);
+
 }

@@ -3,6 +3,11 @@ package toyproject.genshin.teybatguidecrawler.common.domain.value;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+import java.util.Collections;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 @Getter
 @RequiredArgsConstructor
 public enum WeaponType {
@@ -15,4 +20,10 @@ public enum WeaponType {
 
     private final String weaponTypeName;
 
+    private static final Map<String, String> WEAPON_TYPE_MAP = Collections.unmodifiableMap(
+            Stream.of(values()).collect(Collectors.toMap(WeaponType::getWeaponTypeName, WeaponType::name)));
+
+    public static WeaponType of(final String name) {
+        return WeaponType.valueOf(WEAPON_TYPE_MAP.get(name));
+    }
 }
