@@ -1,10 +1,8 @@
 package toyproject.genshin.teybatguidecrawler.batch.config;
 
 import lombok.RequiredArgsConstructor;
-import org.quartz.JobDetail;
-import org.quartz.SimpleScheduleBuilder;
-import org.quartz.Trigger;
-import org.quartz.TriggerBuilder;
+import org.jetbrains.annotations.NotNull;
+import org.quartz.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import toyproject.genshin.teybatguidecrawler.batch.job.BatchJob;
@@ -39,17 +37,18 @@ public class JobConfig {
                 .collect(Collectors.toList());
     }
 
-    private Trigger createJobTrigger(BatchJob job, List<JobDetail> jobDetails) {
+    private Trigger createJobTrigger(@NotNull BatchJob job, List<JobDetail> jobDetails) {
         return TriggerBuilder.newTrigger()
                 .withIdentity(job.getJobName() + "Trigger", job.getGroupName())
                 .forJob(getJobDetail(job, jobDetails))
-                .withSchedule(SimpleScheduleBuilder.simpleSchedule()
-                        .withIntervalInSeconds(60)
-                        .repeatForever())
+                .withSchedule(CronScheduleBuilder.cronSchedule("0 0 0 * * ?")) //매일 자정에 실행
+//                .withSchedule(SimpleScheduleBuilder.simpleSchedule()
+//                        .withIntervalInSeconds(60)      //60초 간격으로 반복 실행
+//                        .repeatForever())               //무한 반복
                 .build();
     }
 
-    private JobDetail getJobDetail(BatchJob job, List<JobDetail> jobDetails) {
+    private JobDetail getJobDetail(BatchJob job, @NotNull List<JobDetail> jobDetails) {
         return jobDetails.stream()
                 .filter(jobDetail -> jobDetail.getKey().getName().equals(job.getJobName()))
                 .findFirst()
