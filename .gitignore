@@ -36,5 +36,5 @@ out/
 ### VS Code ###
 .vscode/
 /src/main/resources/db.sql
-/src/main/resources/application.yml
-/src/main/resources/application-datasource.yml
+/src/main/resources/application-dev.yml
+/src/main/resources/application-prod.yml

@@ -1,0 +1,5 @@
+spring:
+  profiles:
+    default: dev
+logging:
+  config: classpath:log4j2-dev.xml
