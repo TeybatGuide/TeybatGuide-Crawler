@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="INFO">
     <Properties>
+        <Property name="BASE_DIR">./logs</Property>
         <Property name="logNm">logtest</Property>
         <Property name="layoutPattern">%d [%t] %-5level %c{1}(%M:%L) - %m%n</Property>
     </Properties>
@@ -8,7 +9,7 @@
         <Console name="console" target="SYSTEM_OUT">
             <PatternLayout pattern="${layoutPattern}"/>
         </Console>
-        <RollingFile name="file" fileName="/log/${logNm}.log" filePattern="/log/logs/${logNm}_%d{yyyy-MM-dd}_%i.log">
+        <RollingFile name="file" fileName="${BASE_DIR}/${logNm}.log" filePattern="/log/logs/${logNm}_%d{yyyy-MM-dd}_%i.log">
             <PatternLayout pattern="${layoutPattern}"/>
             <Policies>
                 <SizeBasedTriggeringPolicy size="10MB"/> <!-- 10MB 용량이 초과시 DefaultRolloverStrategy 정책만큼 넘버링 -->
