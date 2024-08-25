@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+    <Properties>
+        <Property name="BASE_DIR">./logs</Property>
+        <Property name="logNm">logtest</Property>
+        <Property name="layoutPattern">%d [%t] %-5level %c{1}(%M:%L) - %m%n</Property>
+    </Properties>
+    <Appenders>
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout pattern="${layoutPattern}"/>
+        </Console>
+        <RollingFile name="file" fileName="${BASE_DIR}/${logNm}.log" filePattern="/log/logs/${logNm}_%d{yyyy-MM-dd}_%i.log">
+            <PatternLayout pattern="${layoutPattern}"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10MB"/> <!-- 10MB 용량이 초과시 DefaultRolloverStrategy 정책만큼 넘버링 -->
+<!--                <TimeBasedTriggeringPolicy module="true" interval="1"/>&lt;!&ndash; 일별 로그 파일 생성&ndash;&gt;-->
+            </Policies>
+            <DefaultRolloverStrategy max="500" fileIndex="min"/><!-- 롤링 파일 500개 까지 생성 -->
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Root level="error" additivity="false">
+            <AppenderRef ref="console"/>
+            <AppenderRef ref="file"/>
+        </Root>
+        <logger name="toyproject.genshin.teybatguidecrawler" level="info" additivity="false">
+            <AppenderRef ref="console"/>
+            <AppenderRef ref="file"/>
+        </logger>
+        <logger name="org.springframework" level="error" additivity="false">
+            <AppenderRef ref="console"/>
+            <AppenderRef ref="file"/>
+        </logger>
+        <logger name="org.jsoup" level="error" additivity="false">
+            <AppenderRef ref="console"/>
+            <AppenderRef ref="file"/>
+        </logger>
+
+    </Loggers>
+</Configuration>

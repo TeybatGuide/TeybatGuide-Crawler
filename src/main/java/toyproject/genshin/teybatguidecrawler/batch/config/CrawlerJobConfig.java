@@ -28,7 +28,7 @@ import static org.quartz.JobBuilder.newJob;
 //ToDo
 //  나중에 삭제할 것
 @Log4j2
-@Configuration
+//@Configuration
 @RequiredArgsConstructor
 public class CrawlerJobConfig extends DefaultBatchConfiguration {
 

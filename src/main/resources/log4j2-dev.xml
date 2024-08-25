@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+    <Properties>
+        <Property name="layoutPattern">%d [%t] %-5level %c{1}(%M:%L) - %m%n</Property>
+    </Properties>
+    <Appenders>
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout pattern="${layoutPattern}"/>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Root level="info" additivity="false">
+            <AppenderRef ref="console"/>
+        </Root>
+        <logger name="toyproject.genshin.teybatguidecrawler" level="debug" additivity="false">
+            <AppenderRef ref="console"/>
+        </logger>
+        <logger name="org.springframework" level="error" additivity="false">
+            <AppenderRef ref="console"/>
+        </logger>
+        <logger name="org.jsoup" level="error" additivity="false">
+            <AppenderRef ref="console"/>
+        </logger>
+    </Loggers>
+</Configuration>
