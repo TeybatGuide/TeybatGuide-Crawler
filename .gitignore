@@ -38,3 +38,4 @@ out/
 /src/main/resources/db.sql
 /src/main/resources/application-dev.yml
 /src/main/resources/application-prod.yml
+/logs/
