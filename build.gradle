@@ -51,6 +51,9 @@ dependencies {
         }
     }
 
+    //Ini
+    implementation 'org.ini4j:ini4j:0.5.4'
+
     //selenium
 //    implementation 'org.seleniumhq.selenium:selenium-java:4.22.0'
 
@@ -59,6 +62,9 @@ dependencies {
 
     // gson
     implementation 'com.google.code.gson:gson:2.11.0'
+
+    //Apache Commons Configuration
+    implementation 'org.apache.commons:commons-configuration2:2.11.0'
 }
 
 tasks.named('test') {
